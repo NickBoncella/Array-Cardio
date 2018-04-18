@@ -1,5 +1,3 @@
-// Some data we can work with
-
 const inventors = [
   { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
   { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
@@ -17,27 +15,92 @@ const inventors = [
 
 const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
 
-// Array.prototype.filter()
+/***** Array.prototype.filter() *****/
 // 1. Filter the list of inventors for those who were born in the 1500's
 
-// Array.prototype.map()
+// const fifteen = inventors.filter(function(inventor) {
+//   if (inventor.year >= 1500 && inventor.year < 1600) {
+//     return true;
+//   }
+// });
+
+const fifteen = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600));
+
+console.table(fifteen);
+
+/***** Array.prototype.map() *****/
 // 2. Give us an array of the inventors' first and last names
 
-// Array.prototype.sort()
+// const fullNames = inventors.map(function(inventor) {
+//   return `${inventor.first} ${inventor.last}`;
+// });
+
+const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+
+console.log(fullNames);
+
+/***** Array.prototype.sort() *****/
 // 3. Sort the inventors by birthdate, oldest to youngest
 
-// Array.prototype.reduce()
+// const age = inventors.sort(function(a , b) {
+//   return a.year - b.year;
+// });
+
+const age = inventors.sort((a , b) => (a.year - b.year));
+
+console.table(age);
+
+/***** Array.prototype.reduce() *****/
 // 4. How many years did all the inventors live?
 
-// 5. Sort the inventors by years lived
+// const years = inventors.reduce(function(total, inventor) {
+//   return total + (inventor.passed - inventor.year);
+// }, 0);
 
-// 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+const years = inventors.reduce((total, inventor) => {
+  return total + (inventor.passed - inventor.year);
+}, 0);
+
+console.log(years);
+
+/***** 5. Sort the inventors by years lived *****/
+
+// const yearsLived = inventors.sort(function(a, b) {
+//   return ((a.passed - a.year) - (b.passed - b.year));
+// });
+
+const yearsLived = inventors.sort((a, b) => ((a.passed - a.year) - (b.passed - b.year)));
+
+console.table(yearsLived);
+
+/***** 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name *****/
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
 
-// 7. sort Exercise
+/***** 7. sort Exercise *****/
 // Sort the people alphabetically by last name
 
-// 8. Reduce Exercise
+const lastName = people.sort((a, b) => {
+  if (a < b) {
+    return -1;
+  } else {
+    return 1;
+  }
+});
+
+console.log(lastName);
+
+/***** 8. Reduce Exercise *****/
 // Sum up the instances of each of these
-const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+
+const transportation = data.reduce((allModes, mode) => {
+  if (mode in allModes) {
+    allModes[mode]++;
+  } else {
+    allModes[mode] = 1;
+  }
+  return allModes;
+}, {});
+
+console.log(transportation);
